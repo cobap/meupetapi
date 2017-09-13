@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath meupetapi meupetapi.wsgi --log-file -
+web: gunicorn --pythonpath meupetapi meupetapi.deploy --log-file -
