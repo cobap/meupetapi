@@ -1,11 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework import generics
 
 from . import models
 from . import serializers
 
-class ListPet(APIView):
-	def get(self, request, format=None):
-		pets = models.Pet.objects.all()
-		serializer = serializers.PetSerializer(pets, many=True)
-		return Response(serializer.data) 
+class ListCreatePet(generics.ListCreateAPIView):
+	queryset = models.Pet.objects.all()
+	serializer_class = serializers.PetSerializer
+
+class RetrieveUpdateDestroyPet(generics.RetrieveUpdateDestroyAPIView):
+	queryset = models.Pet.objects.all()
+	serializer_class = serializers.PetSerializer
