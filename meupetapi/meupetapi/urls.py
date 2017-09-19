@@ -21,5 +21,5 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/pets/', include('urls', namespace='rest_frameowrk')),
+    url(r'^api/v1/pets/', include('api.urls', namespace='rest_framework')),
 ]
