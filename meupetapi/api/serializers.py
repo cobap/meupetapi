@@ -7,5 +7,5 @@ class PetSerializer(serializers.ModelSerializer):
 			'nome',
 			'raca',
 		)
-		model = models.Review
+		model = models.Pet
 
