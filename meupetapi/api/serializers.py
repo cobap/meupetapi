@@ -9,6 +9,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 			'segundoNome',
 			'idade',
 			'email',
+			'senha',
 			'descricaoUsuario',
 		)
 		model = models.Usuario

@@ -6,6 +6,7 @@ class Usuario(models.Model):
 	segundoNome = models.CharField(max_length=255)
 	idade = models.DateField(auto_now=False)
 	email = models.EmailField(max_length=255)
+	senha = models.CharField(max_length=30)
 	descricaoUsuario = models.TextField()
 
 	def __str__(self):
