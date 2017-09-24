@@ -7,6 +7,7 @@ from rest_framework.test import APITestCase
 
 from api.models import Passeio
 from api.models import Passeador
+from api.models import Pet
 from api import views
 
 import json
@@ -113,3 +114,63 @@ class PasseadorMethodTest(TestCase):
 
         response2 = self.client.get('/api/v1/passeador/1/')
         self.assertEqual(response2.data, {'id': 1,'primeiroNome': 'Passeador Editado', 'segundoNome': 'Sobrenome', 'idade':'1992-09-13','regiao':'São Paulo','estaPasseando':False,'email':'passeador_editado@mail.com'})
+
+
+class PetMethodTest(TestCase):
+
+	#TAM_CACHORRO = (
+	#	('P', 'Pequeno'),
+	#	('M', 'Medio'),
+	#	('G', 'Grande'),
+	#)
+	#id = models.AutoField(primary_key=True)
+	#dono = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+	#nome = models.CharField(max_length=255)
+	#raca = models.CharField(max_length=255)
+	#tamanho = models.CharField(max_length=1, choices=TAM_CACHORRO)
+	#descricaoPet = models.TextField(blank=True)
+    userId = 0;
+
+    def setUp(self):
+
+        url = reverse('api:usuario_list')
+        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        userResponse = self.client.post(url, data, format='json')
+        self.userId = userResponse.data['id']
+
+        url = reverse('api:pets_list')
+        data = {'dono': self.userId, 'nome': 'Nome do Pet', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'}
+        response = self.client.post(url, data, format='json')
+
+    def test_newPet(self):
+        """
+        Ensure we can create a new pet
+        """
+        url = reverse('api:pets_list')
+        data = {'dono': self.userId, 'nome': 'Nome do Pet 2', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'}
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Pet.objects.count(), 2)
+
+    def test_getPet(self):
+        """
+        Ensure we can see the details of a pet
+        """
+
+        response2 = self.client.get('/api/v1/pet/1/')
+        self.assertEqual(response2.data, {'id': 1,'dono': self.userId, 'nome': 'Nome do Pet', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'})
+
+
+    def test_editPet(self):
+        """
+        Ensure we can edit the details of a pet
+        """
+
+        url = reverse('api:pets_detail',args=[1])
+        data = {'dono': self.userId, 'nome': 'Nome pet editado', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'}
+        response = self.client.patch(url, json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response2 = self.client.get('/api/v1/pet/1/')
+        self.assertEqual(response2.data, {'id': 1,'dono': self.userId, 'nome': 'Nome pet editado', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'})
