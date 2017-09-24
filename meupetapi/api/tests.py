@@ -8,6 +8,7 @@ from rest_framework.test import APITestCase
 from api.models import Passeio
 from api.models import Passeador
 from api.models import Pet
+from api.models import Usuario
 from api import views
 
 import json
@@ -174,3 +175,54 @@ class PetMethodTest(TestCase):
 
         response2 = self.client.get('/api/v1/pet/1/')
         self.assertEqual(response2.data, {'id': 1,'dono': self.userId, 'nome': 'Nome pet editado', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'})
+
+
+class UsuarioMethodTest(TestCase):
+
+	#id = models.AutoField(primary_key=True)
+	#primeiroNome = models.CharField(max_length=255)
+	#segundoNome = models.CharField(max_length=255)
+	#idade = models.DateField(auto_now=False)
+	#email = models.EmailField(max_length=255)
+	#senha = models.CharField(max_length=30)
+	#descricaoUsuario = models.TextField()
+    #userId = 0;
+
+    def setUp(self):
+
+        url = reverse('api:usuario_list')
+        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        response = self.client.post(url, data, format='json')
+
+    def test_newUsuario(self):
+        """
+        Ensure we can create a new user
+        """
+        url = reverse('api:usuario_list')
+        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Usuario.objects.count(), 2)
+
+    def test_getUsuario(self):
+        """
+        Ensure we can see the details of an user
+        """
+
+        response2 = self.client.get('/api/v1/usuario/1/')
+        self.assertEqual(response2.data, {'id': 1,'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'})
+
+
+    def test_editUsuario(self):
+        """
+        Ensure we can edit the details of a user
+        """
+
+        url = reverse('api:usuario_detail',args=[1])
+        data = {'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        response = self.client.patch(url, json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response2 = self.client.get('/api/v1/usuario/1/')
+        self.assertEqual(response2.data, {'id': 1, 'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'})
