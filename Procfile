@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath meupetapi meupetapi.deploy --log-file -
