@@ -13,9 +13,9 @@ install:
   - pip install -r requirements.txt
 
 
-before_script:
-  - psql -c "CREATE DATABASE travisdb;" -U postgres
-  - python captaincook/manage.py migrate --noinput
+# before_script:
+#   - psql -c "CREATE DATABASE travisdb;" -U postgres
+#   - python captaincook/manage.py migrate --noinput
 
 env:
   - DJANGO=1.11.5
