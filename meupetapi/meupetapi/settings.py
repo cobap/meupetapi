@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        # Remover após adicionar autenticação da API
+        # Remover apos adicionar autenticacao da API
         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',  
     )
 }
