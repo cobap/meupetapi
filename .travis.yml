@@ -27,4 +27,4 @@ deploy:
   app: meupetapi
   strategy: git
 
-script: python meupetapi/manage.py test
+script: cd meupetapi python manage.py test
