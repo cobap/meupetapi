@@ -132,13 +132,13 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-#REST FRAMEWORK 
+#REST FRAMEWORK
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         # Remover após adicionar autenticação da API
-        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',  
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     )
 }
