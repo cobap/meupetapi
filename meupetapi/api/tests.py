@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 # -*- coding: utf-8 -*-
->>>>>>> 80da97cee4c92278656157b4e3befc30963cecce
 from django.test import TestCase
 
 from datetime import timedelta
