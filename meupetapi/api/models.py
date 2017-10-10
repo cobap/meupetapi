@@ -1,5 +1,9 @@
 from django.db import models
 
+class TipoUsuario(models.Model):
+	id = models.AutoField(primary_key=True)
+	descricao = models.CharField(max_length=255)
+
 class Usuario(models.Model):
 	id = models.AutoField(primary_key=True)
 	primeiroNome = models.CharField(max_length=255)
@@ -8,6 +12,7 @@ class Usuario(models.Model):
 	email = models.EmailField(max_length=255)
 	senha = models.CharField(max_length=30)
 	descricaoUsuario = models.TextField()
+	tipousuario = models.ManyToManyField(TipoUsuario)
 
 	def __str__(self):
 		return self.primeiroNome

@@ -18,4 +18,8 @@ urlpatterns = [
 	#URLs do Passeio
 	url(r'^passeio/$', views.ListCreatePasseio.as_view(), name='passeio_list'),
 	url(r'passeio/(?P<pk>\d+)/$', views.RetrieveUpdateDestroyPasseio.as_view(), name='passeio_detail'),
+
+	#URLs do TipoUsuario
+	url(r'^tipousuario/$', views.ListCreateTipoUsuario.as_view(), name='tipousuario_list'),
+	url(r'tipousuario/(?P<pk>\d+)/$', views.RetrieveUpdateDestroyTipoUsuario.as_view(), name='tipousuario_detail'),
 ]

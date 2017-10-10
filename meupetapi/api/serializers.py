@@ -1,7 +1,27 @@
 from rest_framework import serializers
 from . import models
+from api.models import TipoUsuario
+
+class TipoUsuarioSerializer(serializers.ModelSerializer):
+	#usuarios = UsuarioSerializer(read_only=False, many=True)
+	class Meta:
+		fields = (
+			'id',
+			'descricao',
+		#	'usuarios',
+		)
+		model = models.TipoUsuario
+
+class TipoUsuarioListingField(serializers.RelatedField):
+	def to_internal_value(self, data):
+		return data
+	def to_representation(self, value):
+		return '%d' % (value.id)
+	def display_value(self, instance):
+		return '%s' % (instance.descricao)
 
 class UsuarioSerializer(serializers.ModelSerializer):
+	tipousuario = TipoUsuarioListingField(read_only=False, many=True, queryset=TipoUsuario.objects.all())
 	class Meta:
 		fields = (
 			'id',
@@ -11,6 +31,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 			'email',
 			'senha',
 			'descricaoUsuario',
+			'tipousuario',
 		)
 		model = models.Usuario
 
@@ -47,4 +68,3 @@ class PasseioSerializer(serializers.ModelSerializer):
 			'descricaoPasseio',
 		)
 		model = models.Passeio
-
