@@ -190,9 +190,18 @@ class UsuarioMethodTest(TestCase):
     #userId = 0;
 
     def setUp(self):
+        #creating user type
+        urlUserType = reverse('api:tipousuario_list')
+        dataUserType = {'descricao': 'PetWalker'}
+        responseUserType = self.client.post(urlUserType, dataUserType, format='json')
+
+        #creating user type
+        urlUserType = reverse('api:tipousuario_list')
+        dataUserType = {'descricao': 'PetOwner'}
+        responseUserType = self.client.post(urlUserType, dataUserType, format='json')
 
         url = reverse('api:usuario_list')
-        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1','2']}
         response = self.client.post(url, data, format='json')
 
     def test_newUsuario(self):
@@ -200,7 +209,7 @@ class UsuarioMethodTest(TestCase):
         Ensure we can create a new user
         """
         url = reverse('api:usuario_list')
-        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        data = {'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['2']}
         response = self.client.post(url, data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -212,7 +221,7 @@ class UsuarioMethodTest(TestCase):
         """
 
         response2 = self.client.get('/api/v1/usuario/1/')
-        self.assertEqual(response2.data, {'id': 1,'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'})
+        self.assertEqual(response2.data, {'id': 1,'primeiroNome': 'Nome', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1','2']})
 
 
     def test_editUsuario(self):
@@ -221,9 +230,9 @@ class UsuarioMethodTest(TestCase):
         """
 
         url = reverse('api:usuario_detail',args=[1])
-        data = {'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'}
+        data = {'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1']}
         response = self.client.patch(url, json.dumps(data), content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response2 = self.client.get('/api/v1/usuario/1/')
-        self.assertEqual(response2.data, {'id': 1, 'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao'})
+        self.assertEqual(response2.data, {'id': 1, 'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1']})
