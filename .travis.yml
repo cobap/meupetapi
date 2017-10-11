@@ -27,4 +27,8 @@ deploy:
   app: meupetapi
   strategy: git
 
-script: python meupetapi/manage.py test api && heroku pg:reset DATABASE && heroku run python meupetapi/manage.py makemigrations && heroku run python meupetapi/manage.py migrate
+script:
+  - python meupetapi/manage.py test api
+  - heroku pg:reset DATABASE
+  - heroku run python meupetapi/manage.py makemigrations
+  - heroku run python meupetapi/manage.py migrate
