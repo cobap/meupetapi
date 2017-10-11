@@ -14,6 +14,9 @@ SECRET_KEY = get_env_variable('SECRET_KEY')
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-# heroku pg:reset DATABASE_URL - apaga tudo e reseta banco do zero - então basta rodar migration para recriar.
+heroku pg:reset DATABASE_URL
+heroku run python manage.py makemigrations
+heroku run python manage.py migrate
+#- apaga tudo e reseta banco do zero - então basta rodar migration para recriar.
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
