@@ -39,7 +39,7 @@ class RetrieveUpdateDestroyPasseio(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Passeio.objects.all()
 	serializer_class = serializers.PasseioSerializer
 
-#Métodos do Passeio
+#Métodos do TipoUsuario
 class ListCreateTipoUsuario(generics.ListCreateAPIView):
 	queryset = models.TipoUsuario.objects.all()
 	serializer_class = serializers.TipoUsuarioSerializer

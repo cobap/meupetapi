@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
 	#URLs do Usuario
 	url(r'^usuario/$', views.ListCreateUsuario.as_view(), name='usuario_list'),
-	url(r'usuario/(?P<pk>\d+)/$', views.RetrieveUpdateDestroyUsuario.as_view(), name='usuario_detail'),
+	url(r'^usuario/(?P<pk>\d+)/$', views.RetrieveUpdateDestroyUsuario.as_view(), name='usuario_detail'),
 
 	#URLs do Pet
 	url(r'^pet/$', views.ListCreatePet.as_view(), name='pets_list'),
