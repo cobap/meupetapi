@@ -10,6 +10,7 @@ from api.models import Passeio
 from api.models import Passeador
 from api.models import Pet
 from api.models import Usuario
+from api.models import TipoUsuario
 from api import views
 
 import json
@@ -235,3 +236,48 @@ class UsuarioMethodTest(TestCase):
 
         response2 = self.client.get('/api/v1/usuario/1/')
         self.assertEqual(response2.data, {'id': 1, 'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1']})
+
+
+class TipoUsuarioMethodTest(TestCase):
+
+	#id = models.AutoField(primary_key=True)
+	#descricao = models.CharField(max_length=255)
+
+    def setUp(self):
+        #creating user type
+        urlUserType = reverse('api:tipousuario_list')
+        dataUserType = {'descricao': 'PetWalker'}
+        responseUserType = self.client.post(urlUserType, dataUserType, format='json')
+
+    def test_newTipoUsuario(self):
+        """
+        Ensure we can create a new user type
+        """
+        url = reverse('api:tipousuario_list')
+        data = {'descricao': 'PetOwner'}
+        response = self.client.post(url, data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(TipoUsuario.objects.count(), 2)
+
+    def test_getTipoUsuario(self):
+        """
+        Ensure we can see the details of an user type
+        """
+
+        response2 = self.client.get('/api/v1/tipousuario/1/')
+        self.assertEqual(response2.data, {'id': 1,'descricao': 'PetWalker'})
+
+
+    def test_editTipoUsuario(self):
+        """
+        Ensure we can edit the details of a user type
+        """
+
+        url = reverse('api:tipousuario_detail',args=[1])
+        data = {'descricao': 'Pet Walker'}
+        response = self.client.patch(url, json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response2 = self.client.get('/api/v1/tipousuario/1/')
+        self.assertEqual(response2.data, {'id': 1, 'descricao': 'Pet Walker'})
