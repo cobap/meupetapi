@@ -1,14 +1,11 @@
 from rest_framework import serializers
 from . import models
-from api.models import TipoUsuario
 
 class TipoUsuarioSerializer(serializers.ModelSerializer):
-	#usuarios = UsuarioSerializer(read_only=False, many=True)
 	class Meta:
 		fields = (
 			'id',
 			'descricao',
-		#	'usuarios',
 		)
 		model = models.TipoUsuario
 
@@ -21,7 +18,7 @@ class TipoUsuarioListingField(serializers.RelatedField):
 		return '%s' % (instance.descricao)
 
 class UsuarioSerializer(serializers.ModelSerializer):
-	tipousuario = TipoUsuarioListingField(read_only=False, many=True, queryset=TipoUsuario.objects.all())
+	tipousuario = TipoUsuarioListingField(read_only=False, many=True, queryset=models.TipoUsuario.objects.all())
 	class Meta:
 		fields = (
 			'id',
