@@ -27,8 +27,7 @@ deploy:
   app: meupetapi
   strategy: git
   run:
-    - rake db:drop
-    - python meupetapi/manage.py makemigrations
-    - python meupetapi/manage.py migrate
+    - python meupetapi/manage.py makemigrations api
+    - python meupetapi/manage.py migrate api
 
 script: python meupetapi/manage.py test api
