@@ -27,7 +27,7 @@ deploy:
   app: meupetapi
   strategy: git
   run:
-    - pg:reset DATABASE
+    - python meupetapi/manage.py sqlclear
     - python meupetapi/manage.py makemigrations
     - python meupetapi/manage.py migrate
 
