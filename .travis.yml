@@ -29,6 +29,6 @@ deploy:
 
 script:
   - python meupetapi/manage.py test api
-  - heroku pg:reset DATABASE
-  - heroku run python meupetapi/manage.py makemigrations
-  - heroku run python meupetapi/manage.py migrate
+  - heroku pg:reset DATABASE --app meupetapi
+  - python meupetapi/manage.py makemigrations
+  - python meupetapi/manage.py migrate
