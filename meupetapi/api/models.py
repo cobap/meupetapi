@@ -15,6 +15,8 @@ class Usuario(models.Model):
 	email = models.EmailField(max_length=255)
 	senha = models.CharField(max_length=30)
 	descricaoUsuario = models.TextField()
+	regiao = models.CharField(max_length=100, default='')
+	estaPasseando = models.BooleanField(default=False)
 	tipousuario = models.ManyToManyField(TipoUsuario)
 
 	def __str__(self):
