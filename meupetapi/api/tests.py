@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
+# from unittest.TestCase - faster than Django TestCase extension
 
+from django.test import TransactionTestCase
 from datetime import timedelta
 from django.urls import reverse
 from rest_framework import status
@@ -117,7 +119,6 @@ class PasseadorMethodTest(TestCase):
         response2 = self.client.get('/api/v1/passeador/1/')
         self.assertEqual(response2.data, {'id': 1,'primeiroNome': 'Passeador Editado', 'segundoNome': 'Sobrenome', 'idade':'1992-09-13','regiao':'São Paulo','estaPasseando':False,'email':'passeador_editado@mail.com'})
 
-
 class PetMethodTest(TestCase):
 
 	#TAM_CACHORRO = (
@@ -176,7 +177,6 @@ class PetMethodTest(TestCase):
 
         response2 = self.client.get('/api/v1/pet/1/')
         self.assertEqual(response2.data, {'id': 1,'dono': self.userId, 'nome': 'Nome pet editado', 'raca': 'Raça 1','tamanho':'M','descricaoPet':'Pet exemplo'})
-
 
 class UsuarioMethodTest(TestCase):
 
@@ -237,7 +237,6 @@ class UsuarioMethodTest(TestCase):
         response2 = self.client.get('/api/v1/usuario/1/')
         self.assertEqual(response2.data, {'id': 1, 'primeiroNome': 'Nome Editado', 'segundoNome': 'Sobrenome', 'idade': '1992-01-02','email':'mail@mail.com','senha':'123','descricaoUsuario':'exemplo descricao','tipousuario':['1']})
 
-
 class TipoUsuarioMethodTest(TestCase):
 
 	#id = models.AutoField(primary_key=True)
@@ -281,3 +280,11 @@ class TipoUsuarioMethodTest(TestCase):
 
         response2 = self.client.get('/api/v1/tipousuario/1/')
         self.assertEqual(response2.data, {'id': 1, 'descricao': 'Pet Walker'})
+
+################################3
+
+class PetModelTransactionTestCase(TransactionTestCase):
+    fixtures = ['api/fixtures/unit-test.json']
+
+    def test_fixtures_load(self):
+        self.assertTrue(Pet.objects.count() > 0)
