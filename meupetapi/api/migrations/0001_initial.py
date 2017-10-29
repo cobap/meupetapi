@@ -40,11 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('nome', models.CharField(max_length=255)),
                 ('raca', models.CharField(max_length=255)),
-<<<<<<< HEAD
                 ('tamanho', models.CharField(choices=[('P', 'Pequeno'), ('M', 'Medio'), ('G', 'Grande')], max_length=1)),
-=======
-                ('tamanho', models.CharField(choices=[(b'P', b'Pequeno'), (b'M', b'Medio'), (b'G', b'Grande')], max_length=1)),
->>>>>>> f86fe27b9238c0296c6513e39aa175b1dc43fa47
                 ('descricaoPet', models.TextField(blank=True)),
             ],
         ),
@@ -65,11 +61,8 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=255)),
                 ('senha', models.CharField(max_length=30)),
                 ('descricaoUsuario', models.TextField()),
-<<<<<<< HEAD
-=======
                 ('regiao', models.CharField(default=b'', max_length=100)),
                 ('estaPasseando', models.BooleanField(default=False)),
->>>>>>> f86fe27b9238c0296c6513e39aa175b1dc43fa47
                 ('tipousuario', models.ManyToManyField(to='api.TipoUsuario')),
             ],
         ),
