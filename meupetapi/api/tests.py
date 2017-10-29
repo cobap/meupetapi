@@ -36,7 +36,7 @@ class PasseioMethodTest(TestCase):
         duracao = timedelta(15)
         origem = "origem"
         local = "local"
-        data = "2017-11-01"
+        data = '2017-11-01'
         descricaoPasseio = "descrição Passeio teste"
         passeador = '1'
         pet = self.petId
@@ -50,15 +50,15 @@ class PasseioMethodTest(TestCase):
         Ensure we can create a new pet walk
         """
         duracao = timedelta(20)
-        origem = "origem"
-        local = "local"
+        origem = "origem 2"
+        local = "local 2"
         data = "2017-11-01"
         descricaoPasseio = "descrição Passeio teste 2"
         passeador = '1'
         pet = '1'
 
         url = reverse('api:passeio_list')
-        data = {'duracao': duracao, 'origem 2': origem, 'local 2': local, 'data': data, 'descricaoPasseio': descricaoPasseio, 'passeador': '1', 'pet': '1'}
+        data = {'duracao': duracao, 'origem': origem, 'local': local, 'data': data, 'descricaoPasseio': descricaoPasseio, 'passeador': '1', 'pet': '1'}
         response = self.client.post(url, data, format='json')
         #descricao = "descricao Passeio teste"
         #testPasseio = Passeio(duracao);
@@ -78,7 +78,7 @@ class PasseioMethodTest(TestCase):
         """
 
         response2 = self.client.get('/api/v1/passeio/1/')
-        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 00:00:00', 'origem': 'origem', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste','idRecorrencia': None, 'passeador': '1', 'pet': '1'})
+        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 00:00:00', 'origem': 'origem', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste','passeador': 1, 'pet': 1, 'idRecorrencia': None})
 
     def test_editPasseio(self):
         """
@@ -93,7 +93,7 @@ class PasseioMethodTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response2 = self.client.get('/api/v1/passeio/1/')
-        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 22:45:00', 'origem': 'origem changed', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste editada', 'idRecorrencia': None, 'passeador': '1', 'pet': '1'})
+        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 22:45:00', 'origem': 'origem changed', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste editada', 'idRecorrencia': None, 'passeador': 1, 'pet': 1})
 
 class PasseadorMethodTest(TestCase):
 
