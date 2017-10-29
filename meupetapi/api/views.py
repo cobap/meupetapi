@@ -40,15 +40,17 @@ class RetrieveUpdateDestroyPasseio(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Passeio.objects.all()
 	serializer_class = serializers.PasseioSerializer
 
-class GetPasseiosByPet(generics.RetrieveUpdateDestroyAPIView):
-	queryset = models.Passeio.objects.all()
+class GetPasseiosByPet(generics.ListAPIView):
 	serializer_class = serializers.PasseioSerializer
-	lookup_field = 'pet'
+	def get_queryset(self):
+		queryset = models.Passeio.objects.filter(pet=self.kwargs['pet'])
+		return queryset
 
-class GetPasseiosByPasseador(generics.RetrieveUpdateDestroyAPIView):
-	queryset = models.Passeio.objects.all()
+class GetPasseiosByPasseador(generics.ListAPIView):
 	serializer_class = serializers.PasseioSerializer
-	lookup_field = 'passeador'
+	def get_queryset(self):
+		queryset = models.Passeio.objects.filter(passeador=self.kwargs['passeador'])
+		return queryset
 
 #Métodos do TipoUsuario
 class ListCreateTipoUsuario(generics.ListCreateAPIView):
