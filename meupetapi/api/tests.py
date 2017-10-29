@@ -78,7 +78,7 @@ class PasseioMethodTest(TestCase):
         """
 
         response2 = self.client.get('/api/v1/passeio/1/')
-        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 00:00:00', 'origem': 'origem', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste','passeador': '1', 'pet': '1'})
+        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 00:00:00', 'origem': 'origem', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste','idRecorrencia': None, 'passeador': '1', 'pet': '1'})
 
     def test_editPasseio(self):
         """
@@ -93,7 +93,7 @@ class PasseioMethodTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response2 = self.client.get('/api/v1/passeio/1/')
-        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 22:45:00', 'origem': 'origem changed', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste editada', 'passeador': '1', 'pet': '1'})
+        self.assertEqual(response2.data, {'id': 1, 'duracao': '15 22:45:00', 'origem': 'origem changed', 'local': 'local', 'data': '2017-11-01', 'descricaoPasseio': 'descrição Passeio teste editada', 'idRecorrencia': None, 'passeador': '1', 'pet': '1'})
 
 class PasseadorMethodTest(TestCase):
 
