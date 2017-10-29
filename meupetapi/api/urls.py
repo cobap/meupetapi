@@ -1,6 +1,13 @@
 from django.conf.urls import url
 
 from . import views
+from django.views.i18n import JavaScriptCatalog
+
+# If you already have a js_info_dict dictionary, just add
+# 'recurrence' to the existing 'packages' tuple.
+js_info_dict = {
+    'packages': ('recurrence', ),
+}
 
 urlpatterns = [
 	#URLs do Usuario
@@ -24,4 +31,8 @@ urlpatterns = [
 	#URLs do TipoUsuario
 	url(r'^tipousuario/$', views.ListCreateTipoUsuario.as_view(), name='tipousuario_list'),
 	url(r'tipousuario/(?P<pk>\d+)/$', views.RetrieveUpdateDestroyTipoUsuario.as_view(), name='tipousuario_detail'),
+
+	# jsi18n can be anything you like here
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict),
+
 ]

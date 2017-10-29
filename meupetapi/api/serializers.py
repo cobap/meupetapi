@@ -69,5 +69,6 @@ class PasseioSerializer(serializers.ModelSerializer):
 			'passeador',
 			'pet',
 			'idRecorrencia',
+			'recorrencias',
 		)
 		model = models.Passeio

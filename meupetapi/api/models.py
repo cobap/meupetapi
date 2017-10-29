@@ -1,4 +1,5 @@
 from django.db import models
+from recurrence.fields import RecurrenceField
 
 class TipoUsuario(models.Model):
 	id = models.AutoField(primary_key=True)
@@ -61,4 +62,5 @@ class Passeio(models.Model):
 	passeador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 	pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
 	idRecorrencia = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, default=None, null=True)
+	recorrencias = RecurrenceField(include_dtstart=False, blank=True, default=None, null=True)
 	# fotoDoPasseio = models.ImageField()
