@@ -54,5 +54,11 @@ class Passeador(models.Model):
 class Passeio(models.Model):
 	id = models.AutoField(primary_key=True)
 	duracao = models.DurationField()
+	origem = models.TextField()
+	local = models.TextField()
+	data = models.DateField()
 	descricaoPasseio = models.TextField()
+	passeador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+	pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+	idRecorrencia = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, default=None, null=True)
 	# fotoDoPasseio = models.ImageField()

@@ -62,6 +62,12 @@ class PasseioSerializer(serializers.ModelSerializer):
 		fields = (
 			'id',
 			'duracao',
+			'origem',
+			'local',
+			'data',
 			'descricaoPasseio',
+			'passeador',
+			'pet',
+			'idRecorrencia',
 		)
 		model = models.Passeio
